@@ -1,3 +1,4 @@
+using AutoMapper;
 using DoctorWho.DB;
 using DoctorWho.DB.Repositories;
 using DoctorWho.DB.Services;
@@ -35,6 +36,8 @@ namespace DoctorWho2
                 options.UseSqlServer(
                     @"Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DoctorWhoCore");
             });
+            // services.AddAutoMapper();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IUnitOfWork ,UnitOfWork>();
             services.AddScoped<IDoctorRepository ,DoctorRepository>();
             services.AddScoped<IDoctorService ,DoctorService>();
