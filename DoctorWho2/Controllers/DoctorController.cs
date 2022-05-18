@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using AutoMapper;
 using DoctorWho.DB.Resources;
+using System;
 
 namespace DoctorWho2.Controllers
 {
@@ -25,19 +26,25 @@ namespace DoctorWho2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DoctorDto>>> GetDoctors()
         {
-            var DoctorList = await _doctorService.GetAllDoctor();
+            var DoctorList = await _doctorService.GetAllDoctorAsync();
 
             if( DoctorList == null )
             {
                 return NotFound();
             }
 
-
-
             var DoctorDtoList = _mapper.Map<IEnumerable<DoctorDto>>(DoctorList);
             return Ok(DoctorDtoList);
 
         }
+
+
+        //[HttpPut("{DoctorId}")]
+        //public IActionResult UpsertDoctor(Guid DoctorId ,DoctorForUpdateDto course)
+        //{
+
+        //}
+
 
 
 
