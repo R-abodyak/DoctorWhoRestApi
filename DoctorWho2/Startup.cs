@@ -1,3 +1,5 @@
+using DoctorWho.DB.Repositories;
+using DoctorWho.DB.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +28,11 @@ namespace DoctorWho2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped<IDoctorRepository ,DoctorRepository>();
+            services.AddScoped<IDoctorService ,DoctorService>();
+            //services.AddAutoMapper();
+            services.AddScoped<IUnitOfWork ,UnitOfWork>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
