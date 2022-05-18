@@ -4,5 +4,9 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\EFDoctorWho\DoctorWho.DB\DoctorWho.DB.csproj" />
+  </ItemGroup>
+
 
 </Project>
