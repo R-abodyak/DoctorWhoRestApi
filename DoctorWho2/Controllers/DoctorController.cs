@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
+using AutoMapper;
+using DoctorWho.DB.Resources;
+
 namespace DoctorWho2.Controllers
 {
     [ApiController]
@@ -11,22 +14,28 @@ namespace DoctorWho2.Controllers
     public class DoctorController:ControllerBase
     {
         private readonly IDoctorService _doctorService;
+        private readonly IMapper _mapper;
 
-        public DoctorController(IDoctorService doctorService)
+        public DoctorController(IDoctorService doctorService ,IMapper mapper)
         {
             _doctorService = doctorService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Doctor>>> GetDoctors()
+        public async Task<ActionResult<IEnumerable<DoctorDto>>> GetDoctors()
         {
-            var res = await _doctorService.GetAllDoctor();
+            var DoctorList = await _doctorService.GetAllDoctor();
 
-            if( res == null )
+            if( DoctorList == null )
             {
                 return NotFound();
             }
-            return Ok(res);
+
+
+
+            var DoctorDtoList = _mapper.Map<IEnumerable<DoctorDto>>(DoctorList);
+            return Ok(DoctorDtoList);
 
         }
 
