@@ -2,6 +2,8 @@ using AutoMapper;
 using DoctorWho.DB;
 using DoctorWho.DB.Repositories;
 using DoctorWho.DB.Services;
+using DoctorWho.DB.Validation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -30,7 +32,7 @@ namespace DoctorWho2
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DoctorForUpdateDtoValidator>());
             services.AddDbContext<DoctorWhoCoreDbContext>(options =>
             {
                 options.UseSqlServer(
