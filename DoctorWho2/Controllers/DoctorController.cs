@@ -52,7 +52,7 @@ namespace DoctorWho2.Controllers
             }
 
 
-            return Ok(DoctorList);
+            return Ok(200);
 
         }
 
@@ -62,18 +62,15 @@ namespace DoctorWho2.Controllers
             DoctorForUpdateDtoValidator validator = new DoctorForUpdateDtoValidator();
 
             ValidationResult results = validator.Validate(doctor);
-            BadRequestResult x = BadRequest();
-            if( !ModelState.IsValid )
-            {
-                ModelState.AddModelError("error" ,"error");
-                return BadRequest(ModelState);
+            var doctorEntity = _mapper.Map<Doctor>(doctor);
+            doctorEntity.DoctorId = DoctorId;
+            var doctor1 = await _doctorService.UpdateDoctor(DoctorId ,doctorEntity);
+            //from configuration in setup for fluentvalidation.asp.NetCore ,
+            //400 bad request  with error validatio msg will be result if there is any validation error 
 
 
-            }
+            //else the code below will be excecute 
 
-            //how to send errors? ...lets see
-            var doctor1 = await _doctorService.UpdateDoctor(DoctorId ,doctor);
-            //this need to create new instance 
             if( doctor1 == null ) return NotFound();
             var DoctorDto = _mapper.Map<DoctorDto>(doctor1);
             return Ok(DoctorDto);
