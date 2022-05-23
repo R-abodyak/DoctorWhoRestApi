@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netcoreapp3.1</TargetFramework>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Migrations\20220512061725_EpisodeSeeding.cs" />
+		<Compile Remove="Migrations\20220512061725_EpisodeSeeding.Designer.cs" />
+		<Compile Remove="Migrations\20220513065820_c.cs" />
+		<Compile Remove="Migrations\20220513065820_c.Designer.cs" />
+		<Compile Remove="Migrations\20220514072158_addFuncSpViews.cs" />
+		<Compile Remove="Migrations\20220514072158_addFuncSpViews.Designer.cs" />
+		<Compile Remove="Migrations\20220514072420_funcSpViews.cs" />
+		<Compile Remove="Migrations\20220514072420_funcSpViews.Designer.cs" />
+		<Compile Remove="Migrations\20220514075822_funcSpViews.cs" />
+		<Compile Remove="Migrations\20220514075822_funcSpViews.Designer.cs" />
+		<Compile Remove="Migrations\20220514081544_t2.cs" />
+		<Compile Remove="Migrations\20220514081544_t2.Designer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.20" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.2" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.20" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.20" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.1.20" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="3.1.0" />
+
+
+	</ItemGroup>
+
+</Project>
