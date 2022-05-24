@@ -41,20 +41,7 @@ namespace DoctorWho2.Controllers
             return Ok(DoctorDtoList);
 
         }
-        [HttpGet("{DoctorId}")]
-        public async Task<ActionResult<DoctorDto>> GetDoctor(int DoctorId)
-        {
-            var DoctorList = await _doctorService.GetDoctor(DoctorId);
 
-            if( DoctorList == null )
-            {
-                return NotFound();
-            }
-
-
-            return Ok(200);
-
-        }
 
         [HttpPut("{DoctorId}")]
         public async Task<ActionResult<DoctorDto>> UpsertDoctor(int DoctorId ,DoctorForUpdateDto doctor)

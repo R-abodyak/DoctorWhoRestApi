@@ -22,7 +22,7 @@ namespace DoctorWho.DB.Services
 
         public async Task AddDoctor(Doctor doctor)
         {
-            await _doctorRepository.AddDoctorAsync(doctor);
+            await _doctorRepository.AddDoctor(doctor);
             await _unitOfWork.CompleteAsync();
         }
 
@@ -46,6 +46,31 @@ namespace DoctorWho.DB.Services
             return x;
         }
 
-      
+        public Task<Doctor> GetDoctor(int id)
+        {
+            var x = _doctorRepository.FindDoctorByIdAsync(id);
+            _unitOfWork.CompleteAsync();
+            return x;
+        }
+
+        public async Task<Doctor> UpdateDoctor(int id ,Doctor doctorToUpdateDto)
+        {
+            var DoctorDB = await _doctorRepository.FindDoctorByIdAsync(id);
+            if( DoctorDB == null )
+            {
+                doctorToUpdateDto.DoctorId = id;
+                await _doctorRepository.AddDoctor(doctorToUpdateDto);
+
+            }
+            else
+            {
+                await _doctorRepository.UpdateDoctor(id ,doctorToUpdateDto);
+
+            }
+            await _unitOfWork.CompleteAsync();
+            DoctorDB = await _doctorRepository.FindDoctorByIdAsync(id);
+
+            return DoctorDB;
+        }
     }
 }
