@@ -22,7 +22,7 @@ namespace DoctorWho.DB.Services
 
         public async Task AddDoctor(Doctor doctor)
         {
-            await _doctorRepository.AddDoctor(doctor);
+            await _doctorRepository.AddDoctorAsync(doctor);
             await _unitOfWork.CompleteAsync();
         }
 
