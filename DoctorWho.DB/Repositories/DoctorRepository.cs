@@ -1,5 +1,5 @@
 ﻿using DoctorWho.DB.Models;
-using DoctorWho.DB.Resurces;
+using DoctorWho.DB.Resources;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,43 +13,68 @@ namespace DoctorWho.DB.Repositories
     {
         public DoctorRepository(DoctorWhoCoreDbContext doctorWhoCoreDbContext)
             : base(doctorWhoCoreDbContext)
+
         {
         }
 
-        public void AddDoctor(Doctor doctor)
+        public async Task AddDoctor(Doctor doctor)
         {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+            var x = await _context.Database.ExecuteSqlRawAsync("SET IDENTITY_INSERT [dbo].[Doctors] ON");
 
-            _context.Doctors.Add(doctor);
-            _context.SaveChanges();
+            await _context.Doctors.AddAsync(doctor);
+
+            await _context.SaveChangesAsync();
+
+            await transaction.CommitAsync();
+
         }
 
-        public void UpdateDoctor(int id ,DoctorDto d)
+        public async Task UpdateDoctor(int id ,Doctor d)
         {
-
-            var x = _context.Doctors.Find(id);
-            if( x == null ) throw new Exception("id is not exist");
+            Doctor x = await FindDoctorByIdAsync(id);
+            if( x == null ) throw new Exception();
             x.DoctorName = d.DoctorName;
+            x.DoctorNumber = d.DoctorNumber;
+            x.BirthDate = d.BirthDate;
+            x.FirstEpisodeDate = d.FirstEpisodeDate;
+            x.LastEpisodeDate = d.LastEpisodeDate;
 
-            x.BirthDate = DateTime.Now;
-            x.FirstEpisodeDate = new DateTime(1900 ,04 ,16);
-            x.LastEpisodeDate = new DateTime(2030 ,11 ,11);
 
-            _context.SaveChanges();
         }
+
+        public async Task<Doctor> FindDoctorByIdAsync(int id)
+        {
+            return await _context.Doctors.FindAsync(id);
+        }
+
         public void DeleteDoctor(int id)
         {
             //DELETE DOCTOR ALSO DELETE RELATED EPISODE
             var x = _context.Doctors.Find(id);
             if( x == null ) return; //throw new Exception("id is not exist");
             _context.Doctors.Remove(x);
-            _context.SaveChanges();
 
         }
-        public async Task<List<Doctor>> GetAllDoctor()
+        public async Task<IEnumerable<Doctor>> GetAllDoctorAsync()
         {
             var doctors = await _context.Doctors.ToListAsync();
             return doctors;
             // var d =context.Doctors.Select(s => s).ToList();
+
+
+
+            ////
+        }
+        public IEnumerable<Doctor> GetAllDoctor()
+        {
+            var doctors = _context.Doctors.ToList();
+            return doctors;
+            // var d =context.Doctors.Select(s => s).ToList();
+
+
+
+            ////
         }
     }
 }

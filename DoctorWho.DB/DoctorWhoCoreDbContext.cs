@@ -7,9 +7,9 @@ using System.Linq;
 using Microsoft.Extensions.Logging;
 
 namespace DoctorWho.DB
-    {
+{
     public class DoctorWhoCoreDbContext:DbContext
-        {
+    {
 
         public DbSet<Episode> Episodes { get; set; }
         public DbSet<Author> Authors { get; set; }
@@ -19,16 +19,16 @@ namespace DoctorWho.DB
         public DbSet<viewEpisodes> ViewEpisodes { get; set; }
 
         public string fnCompanion(int id)
-            {
+        {
             throw new NotImplementedException();
-            }
+        }
         [DbFunction]
         public static string fnEnemies(int id)
-            {
+        {
             throw new NotImplementedException();
-            }
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            {
+        {
             optionsBuilder.EnableSensitiveDataLogging(true);
             optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DoctorWhoCore");
 
@@ -36,7 +36,7 @@ namespace DoctorWho.DB
 
 
 
-            }
+        }
         public static readonly ILoggerFactory ConsoleLoggerFactory
            = LoggerFactory.Create(builder =>
           {
@@ -47,7 +47,7 @@ namespace DoctorWho.DB
           .AddConsole();
           });
         protected override void OnModelCreating(ModelBuilder builder)
-            {
+        {
             base.OnModelCreating(builder);
 
             builder.Entity<Episode>()
@@ -86,55 +86,53 @@ namespace DoctorWho.DB
             //constrains
             builder.Entity<Episode>().HasAlternateKey(e => e.SeriesNumber);//unique --this was added as constrain in mig file
             builder.Entity<Episode>().HasIndex(e => e.EpisodeNumber).IsUnique();//unique
-            builder.Entity<Doctor>().HasAlternateKey(e => e.DoctorNumber);//unique
-                                                                          //sCALER VALUE FUNCTION MAPPING 
 
             //Dataseeding 
             builder.Entity<Doctor>().HasData(
                 new Doctor
-                    {
+                {
                     DoctorId = 1 ,
                     DoctorNumber = 1 ,
                     DoctorName = "Hani" ,
                     FirstEpisodeDate = new DateTime(2022 ,07 ,05) ,
                     LastEpisodeDate = new DateTime(2022 ,08 ,8)
-                    } ,
+                } ,
                 new Doctor
-                    {
+                {
                     DoctorId = 2 ,
                     DoctorNumber = 2 ,
                     DoctorName = "Huda" ,
                     FirstEpisodeDate = new DateTime(2022 ,07 ,08) ,
                     LastEpisodeDate = new DateTime(2022 ,08 ,8) ,
                     BirthDate = new DateTime(1970 ,7 ,7)
-                    } ,
+                } ,
                  new Doctor
-                     {
+                 {
                      DoctorId = 3 ,
                      DoctorNumber = 3 ,
                      DoctorName = "Nada" ,
                      FirstEpisodeDate = new DateTime(2022 ,09 ,01) ,
                      LastEpisodeDate = new DateTime(2022 ,09 ,20) ,
                      BirthDate = new DateTime(1978 ,7 ,7)
-                     } ,
+                 } ,
                   new Doctor
-                      {
+                  {
                       DoctorId = 4 ,
                       DoctorNumber = 4 ,
                       DoctorName = "Ali" ,
                       FirstEpisodeDate = new DateTime(2022 ,09 ,01) ,
                       LastEpisodeDate = new DateTime(2022 ,09 ,20) ,
                       BirthDate = new DateTime(1978 ,7 ,7)
-                      } ,
+                  } ,
                   new Doctor
-                      {
+                  {
                       DoctorId = 5 ,
                       DoctorNumber = 5 ,
                       DoctorName = "salam" ,
                       FirstEpisodeDate = new DateTime(2022 ,09 ,01) ,
                       LastEpisodeDate = new DateTime(2022 ,09 ,20) ,
                       BirthDate = new DateTime(1978 ,7 ,7)
-                      }
+                  }
 
                 );
             Author[] Authors = new Author[5];
@@ -154,7 +152,7 @@ namespace DoctorWho.DB
             builder.Entity<Episode>().HasData
                (
                 new
-                    {
+                {
                     EpisodeId = 1 ,
                     EpisodeNumber = 1 ,
                     SeriesNumber = 1 ,
@@ -169,9 +167,9 @@ namespace DoctorWho.DB
 
 
 
-                    } ,
+                } ,
                 new Episode
-                    {
+                {
                     EpisodeId = 2 ,
 
                     EpisodeNumber = 2 ,
@@ -184,9 +182,9 @@ namespace DoctorWho.DB
 
 
 
-                    } ,
+                } ,
                  new Episode
-                     {
+                 {
                      EpisodeId = 3 ,
 
                      EpisodeNumber = 3 ,
@@ -198,9 +196,9 @@ namespace DoctorWho.DB
                      DoctorId = 1 ,
                      //Author = Authors[0]
 
-                     } ,
+                 } ,
                  new Episode
-                     {
+                 {
                      EpisodeId = 4 ,
 
                      EpisodeNumber = 4 ,
@@ -213,9 +211,9 @@ namespace DoctorWho.DB
                      //Author = Authors[0]
 
 
-                     } ,
+                 } ,
                  new Episode
-                     {
+                 {
                      EpisodeId = 5 ,
 
                      EpisodeNumber = 5 ,
@@ -228,7 +226,7 @@ namespace DoctorWho.DB
                      //Author = Authors[4]
 
 
-                     }
+                 }
                      );
 
             builder.Entity<Companion>().HasData(
@@ -252,6 +250,6 @@ namespace DoctorWho.DB
             builder.Entity<EpisodeEnemy>().HasData(new EpisodeEnemy { EpisodeEnemyId = 9 ,EnemyID = 8 ,EpisodeId = 2 });
 
 
-            }
         }
     }
+}

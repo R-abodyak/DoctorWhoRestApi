@@ -1,5 +1,5 @@
 ﻿using DoctorWho.DB.Models;
-using DoctorWho.DB.Resurces;
+using DoctorWho.DB.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,10 +9,11 @@ namespace DoctorWho.DB.Repositories
 {
     public interface IDoctorRepository
     {
-        void AddDoctor(Doctor doctor);
-
-        void UpdateDoctor(int id ,DoctorDto d);
+        Task AddDoctor(Doctor doctor);
+        Task<Doctor> FindDoctorByIdAsync(int id);
+        Task UpdateDoctor(int id ,Doctor d);
         void DeleteDoctor(int id);
-        public Task<List<Doctor>> GetAllDoctor();
+        public Task<IEnumerable<Doctor>> GetAllDoctorAsync();
+        public IEnumerable<Doctor> GetAllDoctor();
     }
 }

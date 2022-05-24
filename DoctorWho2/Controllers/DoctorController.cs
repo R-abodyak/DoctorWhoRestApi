@@ -1,11 +1,16 @@
-﻿using DoctorWho.DB.Models;
-using DoctorWho.DB.Services;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using AutoMapper;
+﻿using AutoMapper;
+using DoctorWho.DB.Models;
 using DoctorWho.DB.Resources;
+using DoctorWho.DB.Services;
+using DoctorWho.DB.Validation;
+using FluentValidation;
+using FluentValidation.Results;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace DoctorWho2.Controllers
 {
@@ -25,19 +30,39 @@ namespace DoctorWho2.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<DoctorDto>>> GetDoctors()
         {
-            var DoctorList = await _doctorService.GetAllDoctor();
+            var DoctorList = await _doctorService.GetAllDoctorAsync();
 
             if( DoctorList == null )
             {
                 return NotFound();
             }
 
-
-
             var DoctorDtoList = _mapper.Map<IEnumerable<DoctorDto>>(DoctorList);
             return Ok(DoctorDtoList);
 
         }
+
+
+        [HttpPut("{DoctorId}")]
+        public async Task<ActionResult<DoctorDto>> UpsertDoctor(int DoctorId ,DoctorForUpdateDto doctor)
+        {
+            DoctorForUpdateDtoValidator validator = new DoctorForUpdateDtoValidator();
+
+            ValidationResult results = validator.Validate(doctor);
+            var doctorEntity = _mapper.Map<Doctor>(doctor);
+            doctorEntity.DoctorId = DoctorId;
+            var doctor1 = await _doctorService.UpdateDoctor(DoctorId ,doctorEntity);
+            //from configuration in setup for fluentvalidation.asp.NetCore ,
+            //400 bad request  with error validatio msg will be result if there is any validation error 
+
+
+            //else the code below will be excecute 
+
+            if( doctor1 == null ) return NotFound();
+            var DoctorDto = _mapper.Map<DoctorDto>(doctor1);
+            return Ok(DoctorDto);
+        }
+
 
 
 
