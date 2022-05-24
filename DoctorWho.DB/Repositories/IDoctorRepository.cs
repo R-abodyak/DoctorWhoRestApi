@@ -10,9 +10,10 @@ namespace DoctorWho.DB.Repositories
     public interface IDoctorRepository
     {
         void AddDoctor(Doctor doctor);
-
+        Task<Doctor> FindDoctorByIdAsync(int id);
         void UpdateDoctor(int id ,DoctorDto d);
         void DeleteDoctor(int id);
-        public Task<List<Doctor>> GetAllDoctor();
+        public Task<IEnumerable<Doctor>> GetAllDoctorAsync();
+
     }
 }
