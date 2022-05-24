@@ -12,7 +12,9 @@ namespace DoctorWho.DB.Profiles
         public DoctorProfile()
         {
             CreateMap<Doctor ,DoctorDto>();
-           
+            CreateMap<DoctorDto ,Doctor>();
+            CreateMap<DoctorForUpdateDto ,Doctor>();
+
         }
     }
 }
