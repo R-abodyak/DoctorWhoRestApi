@@ -50,6 +50,23 @@ namespace DoctorWho2.Controllers
 
             return Ok(EpisodeEntity.EpisodeId);
         }
+        [HttpPost]
+        [Route("{episodeId}/enemy/")]
+        public async Task<ActionResult<Enemy>> AddEnemyToEpisodeAsync(
+         int episodeId ,EnemyForCreateDto enemyToAdd)
+        {
+            var enemyEntity = _mapper.Map<Enemy>(enemyToAdd);
+            var IsAdd = await _episodeRepository.AddEnemyToEpisodeAsync(enemyEntity ,episodeId);
+            if( IsAdd == false )
+            {
+                return BadRequest("Episode doesn't exist");
+            }
+            await _episodeRepository.SaveChanges();
+            EnemyForCreateDto result = _mapper.Map<EnemyForCreateDto>(enemyEntity);
+            return Ok(result);
+
+        }
+
 
     }
 }
