@@ -30,7 +30,7 @@ namespace DoctorWho.DB.Repositories
 
         }
 
-        public async Task UpdateDoctor(int id ,Doctor d)
+        public async Task UpdateDoctorAsync(int id ,Doctor d)
         {
             Doctor x = await FindDoctorByIdAsync(id);
             if( x == null ) throw new Exception();
@@ -48,10 +48,10 @@ namespace DoctorWho.DB.Repositories
             return await _context.Doctors.FindAsync(id);
         }
 
-        public void DeleteDoctor(int id)
+        public async Task DeleteDoctorAsync(int id)
         {
             //DELETE DOCTOR ALSO DELETE RELATED EPISODE
-            var x = _context.Doctors.Find(id);
+            var x = await _context.Doctors.FindAsync(id);
             if( x == null ) return; //throw new Exception("id is not exist");
             _context.Doctors.Remove(x);
 
@@ -76,5 +76,7 @@ namespace DoctorWho.DB.Repositories
 
             ////
         }
+
+
     }
 }

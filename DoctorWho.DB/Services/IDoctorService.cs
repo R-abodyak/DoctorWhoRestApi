@@ -10,8 +10,8 @@ namespace DoctorWho.DB.Services
     {
         public Task AddDoctor(Doctor doctor);
         public Task<Doctor> UpdateDoctor(int id ,Doctor d);
-        public Task<Doctor> GetDoctor(int id);
-        public void DeleteDoctor(int id);
+
+        public Task<Doctor> DeleteDoctorAsync(int id);
         public Task<IEnumerable<Doctor>> GetAllDoctorAsync();
         public IEnumerable<Doctor> GetAllDoctor();
     }
