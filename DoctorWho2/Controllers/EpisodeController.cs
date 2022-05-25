@@ -1,12 +1,15 @@
 ﻿using AutoMapper;
 using DoctorWho.DB.Repositories;
+using DoctorWho.DB.Resources;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace DoctorWho2.Controllers
 {
 
     [ApiController]
-    [Route("api/doctors")]
+    [Route("api/episodes")]
     public class EpisodeController:ControllerBase
     {
         private readonly IEpisodeRebository _episodeRepository;
@@ -19,14 +22,15 @@ namespace DoctorWho2.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EpisodeDto>>> GetDoctors()
+        public async Task<ActionResult<IEnumerable<EpisodeDto>>> GetEpisodes()
         {
-            var EpisodeList = await _episodeRepository.GetAllDoctorAsync();
+            var EpisodeList = await _episodeRepository.GetAllEpisodeAsync();
 
             if( EpisodeList == null )
             {
                 return NotFound();
             }
+            await _episodeRepository.SaveChanges();
 
             var EpisodeDtoList = _mapper.Map<IEnumerable<EpisodeDto>>(EpisodeList);
             return Ok(EpisodeDtoList);

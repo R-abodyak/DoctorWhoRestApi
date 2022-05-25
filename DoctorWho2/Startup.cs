@@ -43,7 +43,7 @@ namespace DoctorWho2
             services.AddScoped<IUnitOfWork ,UnitOfWork>();
             services.AddScoped<IDoctorRepository ,DoctorRepository>();
             services.AddScoped<IDoctorService ,DoctorService>();
-
+            services.AddScoped<IEpisodeRebository ,EpisodeRepository>();
             //services.AddAutoMapper();
 
 

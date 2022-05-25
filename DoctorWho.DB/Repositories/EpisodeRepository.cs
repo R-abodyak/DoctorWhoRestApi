@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DoctorWho
+namespace DoctorWho.DB.Repositories
 {
     public class EpisodeRepository:BaseRepository, IEpisodeRebository
     {
@@ -20,6 +20,10 @@ namespace DoctorWho
             var Episodes = await _context.Episodes.ToListAsync();
             return Episodes;
 
+        }
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

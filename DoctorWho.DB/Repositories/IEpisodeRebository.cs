@@ -8,7 +8,7 @@ namespace DoctorWho.DB.Repositories
 {
     public interface IEpisodeRebository
     {
-        public Task<IEnumerable<Episode>> GetAllEpisodeAsync();
-
+        Task<IEnumerable<Episode>> GetAllEpisodeAsync();
+        Task SaveChanges();
     }
 }
