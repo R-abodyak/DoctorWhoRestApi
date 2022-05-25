@@ -26,32 +26,32 @@ namespace DoctorWho.DB.Services
             await _unitOfWork.CompleteAsync();
         }
 
-        public void DeleteDoctor(int id)
+        public async Task<Doctor> DeleteDoctorAsync(int id)
         {
-            _doctorRepository.DeleteDoctor(id);
-            _unitOfWork.CompleteAsync();
+            var x = await _doctorRepository.FindDoctorByIdAsync(id);
+
+            if( x == null ) return null;
+            await _doctorRepository.DeleteDoctorAsync(id);
+
+            await _unitOfWork.CompleteAsync();
+            return x;
         }
 
         public Task<IEnumerable<Doctor>> GetAllDoctorAsync()
         {
             var x = _doctorRepository.GetAllDoctorAsync();
-            _unitOfWork.CompleteAsync();
+
             return x;
         }
 
         public IEnumerable<Doctor> GetAllDoctor()
         {
             var x = _doctorRepository.GetAllDoctor();
-            _unitOfWork.CompleteAsync();
+
             return x;
         }
 
-        public Task<Doctor> GetDoctor(int id)
-        {
-            var x = _doctorRepository.FindDoctorByIdAsync(id);
-            _unitOfWork.CompleteAsync();
-            return x;
-        }
+
 
         public async Task<Doctor> UpdateDoctor(int id ,Doctor doctorToUpdateDto)
         {
@@ -64,7 +64,7 @@ namespace DoctorWho.DB.Services
             }
             else
             {
-                await _doctorRepository.UpdateDoctor(id ,doctorToUpdateDto);
+                await _doctorRepository.UpdateDoctorAsync(id ,doctorToUpdateDto);
 
             }
             await _unitOfWork.CompleteAsync();
@@ -72,5 +72,7 @@ namespace DoctorWho.DB.Services
 
             return DoctorDB;
         }
+
+
     }
 }

@@ -63,7 +63,15 @@ namespace DoctorWho2.Controllers
             return Ok(DoctorDto);
         }
 
+        [HttpDelete("{DoctorId}")]
+        public async Task<ActionResult<DoctorDto>> DeleteDoctor(int DoctorId)
+        {
+            var doctor = await _doctorService.DeleteDoctorAsync(DoctorId);
+            if( doctor == null ) return NotFound();
+            var doctorDto = _mapper.Map<DoctorDto>(doctor);
+            return Ok(doctorDto);
 
+        }
 
 
     }
