@@ -1,32 +1,49 @@
-﻿using System;
+﻿using DoctorWho.DB.Models;
+using DoctorWho.DB.Resources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DoctorWho.DB.Repositories
 {
 
 
-    public class AuthorRepository
+    public class AuthorRepository:BaseRepository, IAuthorRepository
     {
 
-        static DoctorWhoCoreDbContext context = new DoctorWhoCoreDbContext();
 
-        public static void DeleteAuthor(int id)
+
+        public AuthorRepository(DoctorWhoCoreDbContext doctorWhoCoreDbContext) : base(doctorWhoCoreDbContext)
+        {
+        }
+        public async Task<Author> GetAuthorAsync(int id)
+        {
+            var author = await _context.Authors.FindAsync(id);
+            return author;
+        }
+        public async Task updateAuthor(Author author ,int id)
+        {
+            var author2 = await _context.Authors.FindAsync(id);
+            author2.AuthorName = author.AuthorName;
+        }
+
+        public void DeleteAuthor(int id)
         {
 
 
             //var x = context.Authors.Find(id);
-            var x = context.Authors.Where(d => d.AuthorId == 1).First();
+            var x = _context.Authors.Where(d => d.AuthorId == 1).First();
             var episodes = x.Episodes.ToList();
             foreach( var episode in episodes )
             {
-                context.Episodes.Remove(episode);
+                _context.Episodes.Remove(episode);
 
             }
             if( x == null ) return;
-            context.Authors.Remove(x);
-            context.SaveChanges();
+            _context.Authors.Remove(x);
+            _context.SaveChanges();
         }
 
     }

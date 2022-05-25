@@ -7,12 +7,12 @@ using System.Text;
 
 namespace DoctorWho.DB.Profiles
 {
-    public class CompanionProfile:Profile
+    public class AuthorProfile:Profile
     {
-        public CompanionProfile()
+        public AuthorProfile()
         {
-            CreateMap<CompanionDto ,Companion>();
-            CreateMap<Enemy ,CompanionDto>();
+            CreateMap<AuthorDto ,Author>();
+            CreateMap<Author ,AuthorDto>();
         }
     }
 }

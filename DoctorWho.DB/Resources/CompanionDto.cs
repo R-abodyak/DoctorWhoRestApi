@@ -4,7 +4,9 @@ using System.Text;
 
 namespace DoctorWho.DB.Resources
 {
-    internal class CompanionDto
+    public class CompanionDto
     {
+        public string CompanionName { get; set; }
+        public string WhoPlayed { get; set; }
     }
 }
