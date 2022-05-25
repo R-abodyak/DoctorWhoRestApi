@@ -21,6 +21,10 @@ namespace DoctorWho.DB.Repositories
             return Episodes;
 
         }
+        public async Task AddEpisodeAsync(Episode episode)
+        {
+            await _context.Episodes.AddAsync(episode);
+        }
         public async Task SaveChanges()
         {
             await _context.SaveChangesAsync();
