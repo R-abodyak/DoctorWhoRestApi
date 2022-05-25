@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DoctorWho.DB.Repositories
 {
@@ -10,6 +11,10 @@ namespace DoctorWho.DB.Repositories
         public BaseRepository(DoctorWhoCoreDbContext doctorWhoCoreDbContext)
         {
             _context = doctorWhoCoreDbContext;
+        }
+        public async Task SaveChanges()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }
