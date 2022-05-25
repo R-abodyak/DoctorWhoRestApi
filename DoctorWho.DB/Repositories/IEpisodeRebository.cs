@@ -11,5 +11,6 @@ namespace DoctorWho.DB.Repositories
         Task<IEnumerable<Episode>> GetAllEpisodeAsync();
         Task AddEpisodeAsync(Episode episode);
         Task SaveChanges();
+        Task AddEnemyToEpisodeAsync(Enemy enemy ,int episodeId)
     }
 }
