@@ -44,6 +44,7 @@ namespace DoctorWho2
             services.AddScoped<IDoctorRepository ,DoctorRepository>();
             services.AddScoped<IDoctorService ,DoctorService>();
             services.AddScoped<IEpisodeRebository ,EpisodeRepository>();
+            services.AddScoped<IAuthorRepository ,AuthorRepository>();
             //services.AddAutoMapper();
 
 
