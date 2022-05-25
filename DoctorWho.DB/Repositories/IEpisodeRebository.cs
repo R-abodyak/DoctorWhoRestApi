@@ -12,5 +12,6 @@ namespace DoctorWho.DB.Repositories
         Task AddEpisodeAsync(Episode episode);
         Task SaveChanges();
         Task<bool> AddEnemyToEpisodeAsync(Enemy enemy ,int episodeId);
+        Task<bool> AddCompanionToEpisodeAsync(Companion companion ,int episodeId)
     }
 }

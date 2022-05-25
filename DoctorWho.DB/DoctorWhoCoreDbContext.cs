@@ -15,6 +15,8 @@ namespace DoctorWho.DB
         public DbSet<Author> Authors { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Companion> Companions { get; set; }
+        public DbSet<Enemy> Enemy { get; set; }
+
         public DbSet<KeylessEntity> KeylessEntity { get; set; }
         public DbSet<viewEpisodes> ViewEpisodes { get; set; }
 
