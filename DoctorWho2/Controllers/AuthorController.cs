@@ -20,14 +20,15 @@ namespace DoctorWho2.Controllers
         }
         [HttpPut]
         [Route("{authorId}")]
-        public async Task<ActionResult<Author>> updateAuthor(int authorId ,AuthorDto authorDto)
+        public async Task<ActionResult<AuthorDto>> updateAuthor(int authorId ,AuthorDto authorDto)
         {
             var x = await _authorRepository.GetAuthorAsync(authorId);
             if( x == null ) return NotFound();
             var author = _mapper.Map<Author>(authorDto);
             await _authorRepository.updateAuthor(author ,authorId);
             await _authorRepository.SaveChanges();
-            return Ok(author);
+            var result = _mapper.Map<AuthorDto>(author);
+            return Ok(result);
         }
 
 
