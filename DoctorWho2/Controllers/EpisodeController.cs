@@ -69,7 +69,7 @@ namespace DoctorWho2.Controllers
         [HttpPost]
         [Route("{episodeId}/Companion/")]
         public async Task<ActionResult<Enemy>> AddCompanionToEpisodeAsync(
-         int episodeId ,CompanionForCreateDto copanionToAdd)
+         int episodeId ,CompanionDto copanionToAdd)
         {
             var companionEntity = _mapper.Map<Companion>(copanionToAdd);
             var IsAdd = await _episodeRepository.AddCompanionToEpisodeAsync(companionEntity ,episodeId);
@@ -78,7 +78,7 @@ namespace DoctorWho2.Controllers
                 return BadRequest("Episode doesn't exist");
             }
             await _episodeRepository.SaveChanges();
-            EnemyForCreateDto result = _mapper.Map<EnemyForCreateDto>(enemyEntity);
+            CompanionDto result = _mapper.Map<CompanionDto>(companionEntity);
             return Ok(result);
 
         }
