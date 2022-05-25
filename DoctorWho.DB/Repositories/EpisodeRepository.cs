@@ -29,5 +29,18 @@ namespace DoctorWho.DB.Repositories
         {
             await _context.SaveChangesAsync();
         }
+        public void AddEnemyToEpisode(Enemy enemy ,int episodeId)
+        {
+            var episode = _context.Episodes.Find(episodeId);
+            if( episode == null ) return;
+
+            _context.Add(new EpisodeEnemy { Enemy = enemy ,Episode = episode });
+
+        }
+        public void AddCompanionToEpisode(Companion companion ,Episode episode)
+        {
+            _context.Add(new EpisodeCompanion { Companion = companion ,Episode = episode });
+
+        }
     }
 }
