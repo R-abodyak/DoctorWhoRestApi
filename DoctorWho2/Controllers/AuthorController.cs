@@ -26,7 +26,7 @@ namespace DoctorWho2.Controllers
             if( x == null ) return NotFound();
             var author = _mapper.Map<Author>(authorDto);
             await _authorRepository.updateAuthor(author ,authorId);
-            _authorRepository.SaveChanges();
+            await _authorRepository.SaveChanges();
             return Ok(author);
         }
 
