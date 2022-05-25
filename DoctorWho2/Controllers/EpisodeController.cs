@@ -30,7 +30,6 @@ namespace DoctorWho2.Controllers
             {
                 return NotFound();
             }
-            await _episodeRepository.SaveChanges();
 
             var EpisodeDtoList = _mapper.Map<IEnumerable<EpisodeDto>>(EpisodeList);
             return Ok(EpisodeDtoList);
