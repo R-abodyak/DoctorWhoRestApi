@@ -38,8 +38,8 @@ namespace DoctorWho2.Controllers
             return Ok(EpisodeDtoList);
 
         }
-        [HttpPost("{EpisodeId}")]
-        public async Task<ActionResult<int>> CreateEpisode(int EpisodeId ,EpisodeForCreateDto episode)
+        [HttpPost]
+        public async Task<ActionResult<int>> CreateEpisode(EpisodeForCreateDto episode)
         {
             EpisodeForCreateDtoValidator validator = new EpisodeForCreateDtoValidator();
 

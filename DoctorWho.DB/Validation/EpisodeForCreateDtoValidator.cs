@@ -13,7 +13,7 @@ namespace DoctorWho.DB.Validation
             RuleFor(e => e.AuthorId).NotEmpty();
             RuleFor(e => e.DoctorId).NotEmpty();
             RuleFor(e => e.SeriesNumber.ToString())
-                   .Must(e => e.Length == 10);
+                   .Must(e => e.Length == 5);
             RuleFor(e => e.EpisodeNumber).GreaterThan(0);
         }
     }

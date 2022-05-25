@@ -12,6 +12,8 @@ namespace DoctorWho.DB.Profiles
         public EpisodeProfile()
         {
             CreateMap<Episode ,EpisodeDto>();
+            CreateMap<EpisodeForCreateDto ,Episode>();
+
 
 
         }

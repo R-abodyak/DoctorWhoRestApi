@@ -160,6 +160,7 @@ namespace DoctorWho.DB
                     Tittle = "tittle1" ,
                     EpisodeDate = new DateTime(2018 ,7 ,24) ,
                     DoctorId = 1 ,
+                    AuthorId = 1
                     //  Author = Authors[0] // , doesnt work  :
                     //  The seed entity for entity type 'Episode'
                     // with the key value 'EpisodeId:1' cannot be added because it has the navigation 'Author' set.
@@ -178,6 +179,7 @@ namespace DoctorWho.DB
                     Tittle = "tittle2" ,
                     EpisodeDate = new DateTime(2022 ,7 ,24) ,
                     DoctorId = 1 ,
+                    AuthorId = 1
                     // Author = Authors[1]
 
 
@@ -194,6 +196,7 @@ namespace DoctorWho.DB
                      EpisodeDate = new DateTime(2023 ,7 ,24) ,
                      Notes = "notes3" ,
                      DoctorId = 1 ,
+                     AuthorId = 1
                      //Author = Authors[0]
 
                  } ,
@@ -208,6 +211,7 @@ namespace DoctorWho.DB
                      EpisodeDate = new DateTime(2023 ,7 ,24) ,
                      Notes = "notes4" ,
                      DoctorId = 2 ,
+                     AuthorId = 3
                      //Author = Authors[0]
 
 
@@ -223,6 +227,7 @@ namespace DoctorWho.DB
                      EpisodeDate = new DateTime(2023 ,7 ,24) ,
                      Notes = "notes5" ,
                      DoctorId = 3 ,
+                     AuthorId = 1
                      //Author = Authors[4]
 
 
