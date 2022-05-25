@@ -25,10 +25,7 @@ namespace DoctorWho.DB.Repositories
         {
             await _context.Episodes.AddAsync(episode);
         }
-        public async Task SaveChanges()
-        {
-            await _context.SaveChangesAsync();
-        }
+
         public async Task<bool> AddEnemyToEpisodeAsync(Enemy enemy ,int episodeId)
         {
             var episode = await _context.Episodes.FindAsync(episodeId);

@@ -17,6 +17,7 @@
 		<Compile Remove="Migrations\20220514075822_funcSpViews.Designer.cs" />
 		<Compile Remove="Migrations\20220514081544_t2.cs" />
 		<Compile Remove="Migrations\20220514081544_t2.Designer.cs" />
+		<Compile Remove="Resources\AuthorRepository.cs" />
 	</ItemGroup>
 
 	<ItemGroup>
