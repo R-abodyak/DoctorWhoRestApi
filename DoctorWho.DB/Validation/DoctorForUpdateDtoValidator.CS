@@ -9,11 +9,13 @@ using System.Linq;
 
 namespace DoctorWho.DB.Validation
 {
+
     public class DoctorForUpdateDtoValidator:AbstractValidator<DoctorForUpdateDto>
     {
-        public DoctorForUpdateDtoValidator()
+        private static DoctorWhoCoreDbContext context;
+        public readonly DoctorWhoCoreDbContext _context;
+        public DoctorForUpdateDtoValidator() : this(context)
         {
-
             RuleFor(d => d.DoctorName).NotNull();
             RuleFor(d => d.DoctorNumber).NotNull();
             RuleFor(c => c.LastEpisodeDate).Equal(default(DateTime)).
@@ -25,13 +27,17 @@ namespace DoctorWho.DB.Validation
 
 
         }
+        private DoctorForUpdateDtoValidator(DoctorWhoCoreDbContext context)
+        {
+            _context = context;
+
+        }
 
 
 
         private bool IsUniqueDoctorNumber(int? number)
         {
-            var _db = new DoctorWhoCoreDbContext();
-            var result = _db.Doctors.Where(x => x.DoctorNumber == number).SingleOrDefault();
+            var result = _context.Doctors.Where(x => x.DoctorNumber == number).SingleOrDefault();
             if( result == null ) return true;
             return false;
 

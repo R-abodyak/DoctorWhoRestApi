@@ -5,14 +5,16 @@ using System.Text;
 
 namespace DoctorWho.DB.Repositories
 {
-    public class EnemyRepository
+    public class EnemyRepository:BaseRepository
     {
-        static DoctorWhoCoreDbContext context = new DoctorWhoCoreDbContext();
-
-        public static void AddEnemy(Enemy enemy)
+        public EnemyRepository(DoctorWhoCoreDbContext doctorWhoCoreDbContext) : base(doctorWhoCoreDbContext)
         {
-            var x = context.Add(enemy);
-            context.SaveChanges();
+        }
+
+        public void AddEnemy(Enemy enemy)
+        {
+            var x = _context.Add(enemy);
+            _context.SaveChanges();
         }
     }
 }

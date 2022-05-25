@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using DoctorWho.DB;
 using DoctorWho.DB.Models;
 using DoctorWho.DB.Resources;
 using DoctorWho.DB.Services;
@@ -20,11 +21,12 @@ namespace DoctorWho2.Controllers
     {
         private readonly IDoctorService _doctorService;
         private readonly IMapper _mapper;
-
-        public DoctorController(IDoctorService doctorService ,IMapper mapper)
+        private readonly DoctorWhoCoreDbContext _context;
+        public DoctorController(DoctorWhoCoreDbContext context ,IDoctorService doctorService ,IMapper mapper)
         {
             _doctorService = doctorService;
             _mapper = mapper;
+            _context = context;
         }
 
         [HttpGet]
