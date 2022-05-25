@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using DoctorWho.DB.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DoctorWho2.Controllers
 {
@@ -7,27 +9,27 @@ namespace DoctorWho2.Controllers
     [Route("api/doctors")]
     public class EpisodeController:ControllerBase
     {
-        private readonly IDoctorService _doctorService;
+        private readonly IEpisodeRebository _episodeRepository;
         private readonly IMapper _mapper;
 
-        public DoctorController(IDoctorService doctorService ,IMapper mapper)
+        public EpisodeController(IEpisodeRebository episodeRepository ,IMapper mapper)
         {
-            _doctorService = doctorService;
+            _episodeRepository = episodeRepository;
             _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<DoctorDto>>> GetDoctors()
+        public async Task<ActionResult<IEnumerable<EpisodeDto>>> GetDoctors()
         {
-            var DoctorList = await _doctorService.GetAllDoctorAsync();
+            var EpisodeList = await _episodeRepository.GetAllDoctorAsync();
 
-            if( DoctorList == null )
+            if( EpisodeList == null )
             {
                 return NotFound();
             }
 
-            var DoctorDtoList = _mapper.Map<IEnumerable<DoctorDto>>(DoctorList);
-            return Ok(DoctorDtoList);
+            var EpisodeDtoList = _mapper.Map<IEnumerable<EpisodeDto>>(EpisodeList);
+            return Ok(EpisodeDtoList);
 
         }
 
