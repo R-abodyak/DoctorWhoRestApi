@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using DoctorWho.DB.Models;
 using DoctorWho.DB.Repositories;
 using DoctorWho.DB.Resources;
+using DoctorWho.DB.Validation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,6 +37,18 @@ namespace DoctorWho2.Controllers
             var EpisodeDtoList = _mapper.Map<IEnumerable<EpisodeDto>>(EpisodeList);
             return Ok(EpisodeDtoList);
 
+        }
+        [HttpPost("{EpisodeId}")]
+        public async Task<ActionResult<int>> CreateEpisode(int EpisodeId ,EpisodeForCreateDto episode)
+        {
+            EpisodeForCreateDtoValidator validator = new EpisodeForCreateDtoValidator();
+
+            ValidationResult results = validator.Validate(episode);
+            var EpisodeEntity = _mapper.Map<Episode>(episode);
+            await _episodeRepository.AddEpisodeAsync(EpisodeEntity);
+            await _episodeRepository.SaveChanges();
+
+            return Ok(EpisodeEntity.EpisodeId);
         }
 
     }
