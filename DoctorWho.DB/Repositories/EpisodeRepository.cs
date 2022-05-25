@@ -29,17 +29,21 @@ namespace DoctorWho.DB.Repositories
         {
             await _context.SaveChangesAsync();
         }
-        public void AddEnemyToEpisode(Enemy enemy ,int episodeId)
+        public async Task<bool> AddEnemyToEpisodeAsync(Enemy enemy ,int episodeId)
         {
-            var episode = _context.Episodes.Find(episodeId);
-            if( episode == null ) return;
-
-            _context.Add(new EpisodeEnemy { Enemy = enemy ,Episode = episode });
+            var episode = await _context.Episodes.FindAsync(episodeId);
+            if( episode == null ) return false;
+            await _context.AddAsync(new EpisodeEnemy { Enemy = enemy ,Episode = episode });
+            return true;
 
         }
-        public void AddCompanionToEpisode(Companion companion ,Episode episode)
+
+        public async Task<bool> AddCompanionToEpisodeAsync(Companion companion ,int episodeId)
         {
-            _context.Add(new EpisodeCompanion { Companion = companion ,Episode = episode });
+            var episode = await _context.Episodes.FindAsync(episodeId);
+            if( episode == null ) return false;
+            await _context.AddAsync(new EpisodeCompanion { Companion = companion ,Episode = episode });
+            return true;
 
         }
     }
