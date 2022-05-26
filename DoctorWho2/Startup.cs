@@ -33,11 +33,10 @@ namespace DoctorWho2
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers().AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<DoctorForUpdateDtoValidator>());
-            services.AddDbContext<DoctorWhoCoreDbContext>(options =>
-            {
-                options.UseSqlServer(
-                    @"Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DoctorWhoCore");
-            });
+            services.AddDbContext<DoctorWhoCoreDbContext>(opt =>
+           opt.UseSqlServer(Configuration.GetConnectionString("DoctorWhoCoreDatabase"))
+
+        );
             // services.AddAutoMapper();
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddScoped<IUnitOfWork ,UnitOfWork>();
@@ -46,6 +45,7 @@ namespace DoctorWho2
             services.AddScoped<IEpisodeRebository ,EpisodeRepository>();
             services.AddScoped<IAuthorRepository ,AuthorRepository>();
             //services.AddAutoMapper();
+
 
 
         }

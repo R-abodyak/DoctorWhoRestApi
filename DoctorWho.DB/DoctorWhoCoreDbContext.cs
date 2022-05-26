@@ -10,7 +10,11 @@ namespace DoctorWho.DB
 {
     public class DoctorWhoCoreDbContext:DbContext
     {
-
+        public DoctorWhoCoreDbContext(DbContextOptions<DoctorWhoCoreDbContext> options)
+     : base(options)
+        {
+            // ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+        }
         public DbSet<Episode> Episodes { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
@@ -32,7 +36,7 @@ namespace DoctorWho.DB
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.EnableSensitiveDataLogging(true);
-            optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DoctorWhoCore");
+            // optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = DoctorWhoCore");
 
 
 
