@@ -13,9 +13,11 @@ namespace DoctorWho.DB.Profiles
         public EnemyProfile()
         {
             CreateMap<EnemyForCreateDto ,Enemy>();
+            CreateMap<Enemy ,EnemyForCreateDto>();
 
         }
 
 
 
     }
+}
